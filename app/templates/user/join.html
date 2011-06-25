@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Join{% endblock %}
+{% block content %}
+
+  Sign up for free here.<br />
+  <form action="/user/join" method="POST">
+    <strong>Name:</strong><br />
+    <input type="text" name="username" /><br />
+    <strong>E-Mail:</strong><br />
+    <input type="email" name="email" /><br />
+    <strong>Password:</strong><br />
+    <input type="password" name="password" /><br />
+    <strong>Password (verify previous):</strong><br />
+    <input type="password_verify" name="password_verify" /><br />
+    <input type="submit" value="Join" /><br />
+  </form>
+  Have an acount already? <a href="/user/login">Login</a>.<br />
+{% endblock %}
