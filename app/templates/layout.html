@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.1//EN"
+	  "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+      body {
+          background-color: #FFFFFF;
+          color: #000000;
+          font-family:Verdana,sans-serif;
+          font-size: small;
+          border: 0px;
+	  padding: 2px;
+	  max-width: 480px; margin: 0 auto;
+      }
+    </style>
+    <link rel="stylesheet" href="/static/css/default.css" type="text/css" />
+    <title>{% block title %}{% endblock %} | mobicms</title>
+  </head>
+  <body>
+    <div><a href="/"><img src="/static/icons/logo.png" alt="openSocial Network" /></a></div>
+    <div>
+      {% if data.user.is_authenticated %}
+	<a href="/user/{{data.user.user.username}}">Profile</a>
+	<a href="/mailbox">Mailbox (1)</a>
+      {% else %}
+	<a href="/user/join">Join</a> or
+	<a href="/user/login">Login</a>
+      {% endif %}
+    </div>
+    {% block content %}{% endblock %}
+
+  </body>
+</html>

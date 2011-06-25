@@ -1,1 +1,30 @@
-<h1>Hello World</h1>
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+  <table>
+    <tr>
+      <td>
+	<a href="/chat">Chat</a>
+      </td>
+      <td class="right">
+	<img src="/static/icons/chat.png" alt="Chat"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<a href="/discussion">Community Discussion</a>
+      </td>
+      <td class="right">
+	<img src="/static/icons/new.png" alt="Discussions"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<a href="/gallery">Gallery</a>
+      </td>
+      <td class="right">
+	<img src="/static/icons/graphics.png" alt="Gallery"/>
+      </td>
+    </tr>
+  </table>
+{% endblock %}
