@@ -64,6 +64,10 @@ CREATE TABLE content_type (
     PRIMARY KEY (id, label)
 );
 
+INSERT INTO content_type (id, label, table_id) VALUES (1, 'Discussion', 'discussion');
+INSERT INTO content_type (id, label, table_id) VALUES (2, 'Chat', 'chat');
+INSERT INTO content_type (id, label, table_id) VALUES (3, 'Gallery', 'gallery');
+
 CREATE TABLE content_group (
     id bigserial UNIQUE,
     typeid int REFERENCES content_type (id),
@@ -72,6 +76,14 @@ CREATE TABLE content_group (
     is_active bool NOT NULL DEFAULT TRUE,
     PRIMARY KEY (id)
 );
+
+INSERT INTO content_group (typeid, label, description) VALUES (1, 'Sport', 'World Sport');
+INSERT INTO content_group (typeid, label, description) VALUES (1, 'Entertainment', 'Entertainment News');
+INSERT INTO content_group (typeid, label, description) VALUES (1, 'Politricks', 'Politics World');
+INSERT INTO content_group (typeid, label, description) VALUES (1, 'Terrorism', 'Changing the World');
+INSERT INTO content_group (typeid, label, description) VALUES (2, 'Main', 'Main General Chat');
+INSERT INTO content_group (typeid, label, description) VALUES (2, 'Troll', 'Trolls Meet');
+
 
 CREATE TABLE chat (
     id bigserial,
