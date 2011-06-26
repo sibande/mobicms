@@ -3,8 +3,8 @@
  * Main site controller
  *
  * @package     mobicms
- * @subpackage  site
- * @author      JB Sibande
+ * @subpackage  main
+ * @author      Jose Sibande
  */
 
 class Site_Main extends Fuuze
@@ -13,9 +13,5 @@ class Site_Main extends Fuuze
   {
     $this->render('index.html');
   }
-
-
-
-
 
 }

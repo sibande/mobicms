@@ -14,7 +14,7 @@ class Site_User extends Fuuze
     if ( ! empty($_POST))
     {
       $rules = require(dirname(__FILE__).'/forms/user.php');
-      $form = new Lib_Form($rules);
+      $form = new FForm_Form($rules);
       $form = $form->validate();
       
       var_dump($_POST);
