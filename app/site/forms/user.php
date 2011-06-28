@@ -4,7 +4,7 @@ function check_value($key, $args)
       {
 	$db = $args['db'];
 	$that = $args['that'];
-	$users = $db->prepare('SELECT * FROM users WHERE '.$key.' = :key');
+	$users = $db->prepare('SELECT * FROM users WHERE lower('.$key.') = lower(:key)');
 	$users->execute(array(':key'=>$that->data[$key]['value']));
 	if ( (bool) $users->rowCount())
 	{
