@@ -3,7 +3,6 @@
 if ( ! defined('CONFIG_LOADED'))
 {
   define('CONFIG_LOADED', TRUE);
-  define('APPLICATION_DIR', 'app');
   define('DEBUG', TRUE);
 }
 
@@ -13,6 +12,7 @@ $Fuuze_config = array(
     '/^\/$/'=>array('Site_Main', 'index', ''),
     '/^\/user\/join$/'=>array('Site_User', 'join', ''),
     '/^\/user\/login$/'=>array('Site_User', 'login', ''),
+    '/^\/user\/\w+$/'=>array('Site_Profile', 'view', ''),
     ),
   // General config
   'hash_secret_key' => '\xb0\xbd\xd5d.\x1f\x9a\x82\x96\xee\x1aj\x0f\x1b(%G\xda\xd1_o"\xee\xe3', 
