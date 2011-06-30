@@ -1,0 +1,10 @@
+{% macro show(field, args, form, hide_errors) %}
+{% if (not hide_errors) and (form.data[field].errors) %}
+  <div class="error">
+    {{ form.data[field].errors[0] }}
+  </div>
+{% endif %}
+{% autoescape false %}
+{{ form.widget.input(field, args) }}
+{% endautoescape %}
+{% endmacro %}

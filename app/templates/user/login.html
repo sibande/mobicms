@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+  Authenticate yourself.<br />
+  {% if form.data.username.errors or form.data.password.errors %}
+    <div class="error">
+      Invalid authentication details.
+    </div>
+  {% endif %}
+  <form action="/user/login" method="POST">
+    <div><strong>Name:</strong></div>
+    {{ input.show("username", {}, form, true) }}
+    <div><strong>Password:</strong></div>
+    {{ input.show("password", {"type": "password"}, form, true) }}
+    <input type="submit" value="Login" /><br />
+  </form>
+  Don't have an account? <a href="/user/join">Create one</a>.<br />
+
+  
+{% endblock %}
