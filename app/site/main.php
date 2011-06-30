@@ -4,14 +4,14 @@
  *
  * @package     mobicms
  * @subpackage  main
- * @author      Jose Sibande
+ * @author      Jose Sibande <jbsibande@gmail.com>
  */
 
-class Site_Main extends Fuuze
+class Site_Main extends FController
 {
   public function index()
   {
-    $this->render('index.html');
+    $this->render('index.html', array('data'=>$this->data));
   }
 
 }

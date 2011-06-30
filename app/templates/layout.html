@@ -19,16 +19,25 @@
     <title>{% block title %}{% endblock %} | mobicms</title>
   </head>
   <body>
+    
+    {# import macros #}
+
+    {% import "/_macros/forms.html" as input %}
+
+
     <div><a href="/"><img src="/static/icons/logo.png" alt="openSocial Network" /></a></div>
-    <div>
+    
       {% if data.user.is_authenticated %}
-	<a href="/user/{{data.user.user.username}}">Profile</a>
-	<a href="/mailbox">Mailbox (1)</a>
+	<div class="right profile">
+	  <a href="/user/{{data.user.user.username}}">Profile</a>
+	  <a href="/mailbox">Mailbox (1)</a>
+	</div>
       {% else %}
-	<a href="/user/join">Join</a> or
-	<a href="/user/login">Login</a>
+	<div>
+	  <a href="/user/join">Join</a> or
+	  <a href="/user/login">Login</a>
+	</div>
       {% endif %}
-    </div>
     {% block content %}{% endblock %}
 
   </body>

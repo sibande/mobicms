@@ -3,3 +3,5 @@ body {
 a img { border: 0; }
 table, input { width: 100% }
 .right { text-align: right; }
+
+.error { color: #8a1f11; }
