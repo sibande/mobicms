@@ -1,6 +1,13 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
+  {% if user.is_authenticated %}
+    <div>
+      Hello, <a href="/user/{{ user.object.username }}">{{ user.object.username }}</a>
+    </div>
+  {% endif %}
+
+  
   <table>
     <tr>
       <td>
@@ -27,4 +34,9 @@
       </td>
     </tr>
   </table>
+  {% if user.is_authenticated %}
+    <div class="right">
+      <a href="/user/logout">Logout</a>
+    </div>
+  {% endif %}
 {% endblock %}

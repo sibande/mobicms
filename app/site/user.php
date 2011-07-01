@@ -1,6 +1,6 @@
 <?php
 /**
- * Main site controller
+ * User management
  *
  * @package     mobicms
  * @subpackage  user
@@ -12,7 +12,6 @@ class Site_User extends FController
   
   public function login()
   {
-    $data = array();
     $rules = require(dirname(__FILE__).'/forms/user.php');
     $form = new FForm_Form($rules['login']);
     
@@ -30,9 +29,9 @@ class Site_User extends FController
       }
     }
 
-    $data['form'] = $form;
+    $this->data['form'] = $form;
 
-    $this->render('user/login.html', $data);
+    $this->render('user/login.html', $this->data);
   }
   
   public function join()
@@ -40,7 +39,6 @@ class Site_User extends FController
     $rules = require(dirname(__FILE__).'/forms/user.php');
     $form = new FForm_Form($rules['join']);
 
-    $data = array();
 
     if ( ! empty($_POST))
     {
@@ -64,11 +62,16 @@ class Site_User extends FController
       }
     }
     
-    $data['form'] = $form;
+    $this->data['form'] = $form;
 
-    $this->render('user/join.html', $data);
+    $this->render('user/join.html', $this->data);
   }
   
+  public function logout()
+  {
+    unset($_SESSION['user_id']);
+    header('Location: http://'.$_SERVER['HTTP_HOST'].'/');
+  }
   
   public function hash($str)
   {
