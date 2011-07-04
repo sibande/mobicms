@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Chat{% endblock %}
+{% block content %}
+<h3>Community Chat</h3>
+
+<table>
+{% for chatroom in chatrooms %}
+  <tr>
+    <td>
+      <a href="/chat/{{ chatroom.label|lower }}">{{ chatroom.label }}</a>
+    </td>
+    <td class="lime right">
+      0
+    </td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}

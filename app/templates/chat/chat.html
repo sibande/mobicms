@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}{{ chatroom.label }} chat{% endblock %}
+{% block content %}
+<h3>{{ chatroom.label }}</h3>
+
+<form action="/chat/{{ chatroom.label|lower }}" method="POST">
+  {{ input.show("message", "textarea", {"rows": 4}, form) }}
+  <input type="submit" value="Send" /><br />
+</form>
+
+{% for data in chat_data %}
+  <div>
+    <a href="/user/{{ data.username }}">{{ data.username }}</a> : {{ data.message }} - {{ data.datetime }}
+  </div>
+{% endfor %}
+
+{% endblock %}
