@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}{{ forum.label }}{% endblock %}
+{% block content %}
+  <h3>{{ forum.label }}</h3>
+  <div class="top-menu right">
+    <a href="/discussion/{{ forum.label|lower }}/add"><img src="/static/icons/add.png" alt="+" /> Add Topic</a>
+  </div>
+
+  {% for topic in topics_data %}
+    <div><a href="/discussion/topic/{{ topic.id }}">{{ topic.topic }}</a> - {{ topic.datetime }}</div>
+  {% endfor %}
+  
+  <div class="bottom-menu right">
+    <a href="/discussion">Back</a>
+  </div>
+
+{% endblock %}

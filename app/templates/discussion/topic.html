@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}{{ topic.topic }} - {{ topic.forum_label }}{% endblock %}
+{% block content %}
+  <h2>{{ topic.topic }}</h2>
+  <a href="/user/{{ topic.username }}">{{ topic.username }}</a> - {{ topic.datetime }}<br />
+  <div>{{ topic.body }}</div>
+  <hr />
+
+  {% include "discussion/_replies.html" %}
+  
+  {% if user.is_authenticated %}
+    <form action="/discussion/topic/{{ topic.id }}" method="POST">
+      <strong>Reply</strong><br />
+      {{ input.show("body", "textarea", {"rows": 3}, form) }}
+      <input type="submit" value="Reply" />
+    </form>
+  {% endif %}
+  
+  
+  <div class="bottom-menu right">
+    <a href="/discussion/{{ topic.forum_label|lower }}">Back</a>
+  </div>
+{% endblock %}

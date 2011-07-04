@@ -1,0 +1,10 @@
+{# display topic replies #}
+
+{% for reply in replies %}
+  <div>
+    <div>
+      {{ reply.body }}
+    </div>
+    <a href="/user/{{ reply.username }}">{{ reply.username }}</a> - {{ reply.datetime }}
+  </div>
+{% endfor %}
