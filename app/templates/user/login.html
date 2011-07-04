@@ -10,9 +10,9 @@
   {% endif %}
   <form action="/user/login" method="POST">
     <div><strong>Name:</strong></div>
-    {{ input.show("username", {}, form, true) }}
+    {{ input.show("username", "input", {}, form, true) }}
     <div><strong>Password:</strong></div>
-    {{ input.show("password", {"type": "password"}, form, true) }}
+    {{ input.show("password", "input", {"type": "password"}, form, true) }}
     <input type="submit" value="Login" /><br />
   </form>
   Don't have an account? <a href="/user/join">Create one</a>.<br />

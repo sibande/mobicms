@@ -4,13 +4,13 @@
   Sign up for free here.<br />
   <form action="/user/join" method="POST">
     <div><strong>Name:</strong></div>
-    {{ input.show("username", {}, form) }}
+    {{ input.show("username", "input", {}, form) }}
     <div><strong>E-Mail:</strong></div>
-    {{ input.show("email", {}, form) }}
+    {{ input.show("email", "input", {}, form) }}
     <div><strong>Password:</strong></div>
-    {{ input.show("password", {"type": "password"}, form) }}
+    {{ input.show("password", "input", {"type": "password"}, form) }}
     <div><strong>Password (verify previous):</strong></div>
-    {{ input.show("password_verify", {"type": "password"}, form) }}
+    {{ input.show("password_verify", "input", {"type": "password"}, form) }}
     <input type="submit" value="Join" /><br />
   </form>
   Have an acount already? <a href="/user/login">Login</a>.<br />

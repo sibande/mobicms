@@ -11,7 +11,7 @@ class Site_Main extends FController
 {
   public function index()
   {
-    $this->render('index.html', array('data'=>$this->data));
+    $this->render('index.html', $this->data);
   }
 
 }

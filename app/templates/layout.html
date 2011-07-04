@@ -27,9 +27,9 @@
 
     <div><a href="/"><img src="/static/icons/logo.png" alt="openSocial Network" /></a></div>
     
-      {% if data.user.is_authenticated %}
+      {% if user.is_authenticated %}
 	<div class="right profile">
-	  <a href="/user/{{data.user.user.username}}">Profile</a>
+	  <a href="/user/{{ user.object.username }}">Profile</a>
 	  <a href="/mailbox">Mailbox (1)</a>
 	</div>
       {% else %}

@@ -1,7 +1,9 @@
 body {
 }
 a img { border: 0; }
-table, input { width: 100% }
+a { text-decoration: none; }
+table, input, textarea { width: 100%; }
+hr { border-width: 0 0 1px 0; }
 .right { text-align: right; }
-
+.lime { color: lime; }
 .error { color: #8a1f11; }
