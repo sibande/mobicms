@@ -18,6 +18,7 @@ class FController extends Fuuze
     parent::__construct();
     
     $this->user_object();
+    
   }
   
   public function is_authenticated()
@@ -29,15 +30,16 @@ class FController extends Fuuze
     if ( ! array_key_exists('user_id', $_SESSION))
     {
       $_SESSION['user_id'] = NULL;
+      $user = array(array());
     }
     $this->data['user']['is_authenticated'] = ((bool) $_SESSION['user_id']);
 
     $user_id = $_SESSION['user_id'];
     $users = $this->db->prepare('SELECT id, username, email, udatetime, datetime '.
-				'FROM users WHERE id = :id;');
+				'FROM users WHERE id = :id LIMIT 1;');
     $users->execute(array(':id' => $user_id));
-    $user = $users->fetchAll();
-
+    $user = $users->fetch();
     $this->data['user']['object'] = $user;
   }
+  
 }

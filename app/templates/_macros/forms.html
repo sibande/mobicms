@@ -1,10 +1,14 @@
-{% macro show(field, args, form, hide_errors) %}
+{% macro show(field, field_type, args, form, hide_errors) %}
 {% if (not hide_errors) and (form.data[field].errors) %}
   <div class="error">
     {{ form.data[field].errors[0] }}
   </div>
 {% endif %}
 {% autoescape false %}
-{{ form.widget.input(field, args) }}
+{% if field_type == "input" %}
+  {{ form.widget.input(field, args) }}
+{% else %}
+  {{ form.widget.textarea(field, args) }}
+{% endif %}
 {% endautoescape %}
 {% endmacro %}
