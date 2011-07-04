@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+
+  <a href="/user/{{ request.route.username }}"><h2>{{ request.route.username }}</h2></a>
+
+  <div>
+    Last login: {{ profile_user.udatetime }}
+  </div>
+{% endblock %}
