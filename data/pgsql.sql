@@ -3,8 +3,8 @@ CREATE TABLE users (
     username varchar(60),
     password varchar(500) NOT NULL,
     email varchar(100),
-    udatetime timestamp NOT NULL,
-    datetime timestamp NOT NULL,
+    udatetime timestamp NOT NULL DEFAULT now(),
+    datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id, username, email)
 );
 
@@ -15,8 +15,8 @@ CREATE TABLE profile (
     sex varchar(1),
     country varchar(100),
     city varchar(100),
-    udatetime timestamp NOT NULL,
-    datetime timestamp NOT NULL,
+    udatetime timestamp NOT NULL DEFAULT now(),
+    datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE uconnection (
     user_two_id bigint REFERENCES users (id),
     is_blocked bool DEFAULT FALSE,
     ucon_id bigint,
-    datetime timestamp NOT NULL,
+    datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
 
@@ -37,8 +37,8 @@ CREATE TABLE message (
     exchange_id bigint REFERENCES uconnection (id),
     status smallint,
     is_read bool DEFAULT FALSE,
-    udatetime timestamp NOT NULL,
-    datetime timestamp NOT NULL,
+    udatetime timestamp NOT NULL DEFAULT now(),
+    datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
 
@@ -51,8 +51,8 @@ CREATE TABLE contact (
     net_id text,
     is_read bool NOT NULL DEFAULT FALSE,
     is_active bool NOT NULL DEFAULT TRUE,
-    udatetime timestamp NOT NULL,
-    datetime timestamp NOT NULL,
+    udatetime timestamp NOT NULL DEFAULT now(),
+    datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
 
@@ -90,7 +90,7 @@ CREATE TABLE chat (
     uid bigint NOT NULL REFERENCES users (id),
     message text NOT NULL,
     room_id int NOT NULL REFERENCES content_group (id),
-    datetime timestamp NOT NULL,
+    datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
 
@@ -101,8 +101,8 @@ CREATE TABLE discussion (
     body text,
     groupid int REFERENCES content_group (id),
     is_active bool NOT NULL DEFAULT TRUE,
-    udatetime timestamp NOT NULL,
-    datetime timestamp NOT NULL,
+    udatetime timestamp NOT NULL DEFAULT now(),
+    datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
 
@@ -113,7 +113,7 @@ CREATE TABLE comments (
     item_id bigint NOT NULL,
     typeid int NOT NULL REFERENCES content_type (id),
     is_active bool NOT NULL DEFAULT TRUE,
-    udatetime timestamp NOT NULL,
-    datetime timestamp NOT NULL,
+    udatetime timestamp NOT NULL DEFAULT now(),
+    datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
