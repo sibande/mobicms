@@ -9,8 +9,9 @@
 
 class Site_Main extends FController
 {
-  public function index()
+  public function index($request)
   {
+    $this->data['request'] = $request;
     $this->render('index.html', $this->data);
   }
 

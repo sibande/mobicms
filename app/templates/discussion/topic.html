@@ -16,8 +16,8 @@
     </form>
   {% endif %}
   
-  
-  <div class="bottom-menu right">
-    <a href="/discussion/{{ topic.forum_label|lower }}">Back</a>
-  </div>
 {% endblock %}
+
+{% block bottom_menu %}
+  <a href="/discussion/{{ topic.forum_label|lower }}">Back</a><br />
+  {% endblock %}

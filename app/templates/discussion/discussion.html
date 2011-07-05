@@ -10,8 +10,9 @@
     <div><a href="/discussion/topic/{{ topic.id }}">{{ topic.topic }}</a> - {{ topic.datetime }}</div>
   {% endfor %}
   
-  <div class="bottom-menu right">
-    <a href="/discussion">Back</a>
-  </div>
 
+{% endblock %}
+
+{% block bottom_menu %}
+  <a href="/discussion">Back</a><br />
 {% endblock %}

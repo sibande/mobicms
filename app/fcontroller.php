@@ -17,14 +17,17 @@ class FController extends Fuuze
   {
     parent::__construct();
     
-    $this->user_object();
+    $this->_extra_twig_options();
     
+    $this->user_object();
   }
   
-  public function is_authenticated()
+  public function _extra_twig_options()
   {
-    
+    $this->_twig_env->addFunction('remove_name_ext', new Twig_Function_Function('FHelper::remove_name_ext'));
+    $this->_twig_env->addFunction('get_file_url', new Twig_Function_Function('FHelper::file_url'));
   }
+
   public function user_object()
   {
     if ( ! array_key_exists('user_id', $_SESSION))

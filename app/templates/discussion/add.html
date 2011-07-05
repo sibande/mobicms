@@ -12,8 +12,8 @@
     <input type="submit" value="Post" />
   </form>
   
-  
-  <div class="bottom-menu right">
-    <a href="/discussion/{{ forum.label|lower }}">Back</a>
-  </div>
+{% endblock %}
+
+{% block bottom_menu %}
+  <a href="/discussion/{{ forum.label|lower }}">Back</a><br />
 {% endblock %}

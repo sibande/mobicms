@@ -39,6 +39,14 @@
 	</div>
       {% endif %}
     {% block content %}{% endblock %}
+    
+    {% if not (request.route[0] == "/") %}
+      
+      <div class="bottom-menu right">
+	{% block bottom_menu %}{% endblock %}
+	<a href="/">Home</a>
+      </div>
+    {% endif %}
 
   </body>
 </html>
