@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}File{% endblock %}
+{% block content %}
+
+  <img src="{{ get_file_url(file.id, 176) }}" alt="{{ file.original }}" /><br />
+  <strong>{{ remove_name_ext(file.original) }}</strong><br />
+  Uploaded: {{ file.datetime }}<br />
+  <a href="/gallery/{{ file.username|lower }}/{{ file.id }}/default">Set as Profile Pic</a><br />
+
+{% endblock %}
+
+{% block bottom_menu %}
+  <a href="/gallery/{{ file.username|lower }}">Back</a><br />
+{% endblock %}

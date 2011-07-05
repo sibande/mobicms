@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}{{ request.route.username|lower }} Gallery{% endblock %}
+{% block content %}
+
+  <h2>{{ request.route.username|lower }} Gallery</h2>
+  
+  <table>
+    {% for file in files %}
+      {% if not loop.index is divisibleby(2) %}
+	<tr>
+      {% endif %}
+      <td>
+	<a href="/gallery/{{ request.route.username|lower }}/{{ file.id }}">
+	  <img src="{{ get_file_url(file.id, 60) }}" alt="{{ file.original }}" /><br />
+	  {{ remove_name_ext(file.original) }}
+	</a>
+      </td>
+      {% if loop.index is divisibleby(2) %}
+	</tr>
+      {% endif %}
+    {% endfor %}
+    {% if not files|length is divisibleby(2) %}
+      </tr>
+    {% endif %}
+  </table>
+{% endblock %}
+
+{% block bottom_menu %}
+  <a href="/user/{{  request.route.username|lower }}">Back</a><br />
+{% endblock %}

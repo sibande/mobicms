@@ -2,8 +2,9 @@
 {% block title %}Profile{% endblock %}
 {% block content %}
 
-  <a href="/user/{{ request.route.username }}"><h2>{{ request.route.username }}</h2></a>
+  <a href="/user/{{ request.route.username|lower }}"><h2>{{ request.route.username }}</h2></a>
 
+  <a href="/gallery/{{ request.route.username|lower }}"><img src="/static/icons/graphics.png" alt="gallery" /> Gallery</a><br />
   <div>
     Last login: {{ profile_user.udatetime }}
   </div>
