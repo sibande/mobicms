@@ -29,8 +29,8 @@
     
       {% if user.is_authenticated %}
 	<div class="right profile">
-	  <a href="/user/{{ user.object.username }}">Profile</a>
-	  <a href="/mailbox">Mailbox (1)</a>
+	  <a href="/user/{{ user.data.username }}">Profile</a>
+	  <a href="/mail">Mailbox</a> (<span class="lime">{{ user.data.id|new_messages }}</span>)
 	</div>
       {% else %}
 	<div>

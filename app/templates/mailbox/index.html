@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}MailBox{% endblock %}
+{% block content %}
+  <h2>MailBox</h2>
+
+  <strong>View messages from:</strong><br />
+  {% for exchange in exchanges %}
+    <div>
+      <a href="/mail/messages/{{ exchange.id }}">
+        {% if user.data.username == exchange.username_one %}
+	  {{ exchange.username_two }}</a> (<span class="lime">{{ user.data.id|new_messages(exchange.user_two_id) }}</span> 
+	{% elseif user.data.username == exchange.username_two %}
+	  {{ exchange.username_one }}</a> (<span class="lime">{{ user.data.id|new_messages(exchange.user_one_id) }}</span> 
+	{% endif %}
+	new messages)
+      </div>
+  {% endfor %}
+  
+{% endblock %}

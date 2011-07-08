@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% if ucon.user_two_id == user.data.id %}
+  {% set from_username = ucon.username_one %}
+  {% set from_id = ucon.user_one_id %}
+{% elseif ucon.user_one_id == user.data.id %}
+  {% set from_username = ucon.username_two %}
+  {% set from_id = ucon.user_two_id %}
+{% endif %}
+
+{% block title %}
+{{ from_username }} Messages 
+{% endblock %}
+{% block content %}
+
+  <h2>Messages from - <a href="/user/{{ from_username|lower }}">{{ from_username }}</a></h2>
+  
+  {% for message in messages %}
+    <div>
+      <strong>
+	{% if message.sender_id == user.data.id %}
+	  [you]
+	{% else %}
+	  [{{ message.username }}]
+	  {% if not message.is_read %}
+	    {{ message.id|mark_as_read(user.data.id) }}
+	  {% endif %}
+	{% endif %}
+      </strong>
+      :
+      {{ message.message }}
+    </div>
+  {% endfor %}
+  
+  <br />
+  <strong>Reply</strong><br />
+  <form action="/mail/send/{{ from_id }}?next=/mail/messages/{{ ucon.id }}" method="POST">
+    {{ input.show("message", "textarea", {"rows": 2}, form) }}
+    <input type="submit" value="Send" />
+  </form>
+{% endblock %}
+
+{% block bottom_menu %}
+  <a href="/mail">Back</a><br />
+{% endblock %}

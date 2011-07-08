@@ -1,11 +1,32 @@
 {% extends "layout.html" %}
-{% block title %}Profile{% endblock %}
+{% block title %}{{ object_user.username }} Profile{% endblock %}
 {% block content %}
 
-  <a href="/user/{{ request.route.username|lower }}"><h2>{{ request.route.username }}</h2></a>
+  <a href="/user/{{ object_user.username|lower }}"><h2>{{ object_user.username }}</h2></a>
 
-  <a href="/gallery/{{ request.route.username|lower }}"><img src="/static/icons/graphics.png" alt="gallery" /> Gallery</a><br />
+  <img src="{{ get_file_url(object_user.profile_pic_id, 176) }}" alt="{{ object_user.username }}" />
   <div>
-    Last login: {{ profile_user.udatetime }}
+    {% if not (object_user.id == user.data.id) %}
+      <strong>Message</strong><br />
+      {% if get_flash("send_feedback") %}
+	<div class="error">
+	  {{ get_flash("send_feedback") }}
+	</div>
+      {% endif %}
+      <form action="/mail/send/{{ object_user.id }}?next=/user/{{ object_user.username|lower }}" method="POST">
+	{{ input.show("message", "textarea", {"rows": 2}, form) }}
+	<input type="submit" value="Send" />
+      </form>
+    {% else %}
+      <a href="/mail/inbox">MailBox</a> (<span class="lime">{{ user.data.id|new_messages}}</span> new)<br />
+    {% endif %}
+  </div>
+
+  <br />
+
+  <a href="/gallery/{{ object_user.username|lower }}"><img src="/static/icons/graphics.png" alt="gallery" /> Gallery</a>
+  ({{ gallery_file_count(object_user.id) }} files)<br />
+  <div>
+    Last login: {{ object_user.udatetime }}
   </div>
 {% endblock %}

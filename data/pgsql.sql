@@ -12,18 +12,17 @@ CREATE TABLE uconnection (
     id bigserial UNIQUE,
     user_one_id bigint REFERENCES users (id),
     user_two_id bigint REFERENCES users (id),
-    is_blocked bool DEFAULT FALSE,
-    ucon_id bigint,
     datetime timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE message (
     id bigserial,
-    sender_id bigint REFERENCES users (id),
-    receiver_id bigint REFERENCES users (id),
-    exchange_id bigint REFERENCES uconnection (id),
-    status smallint,
+    sender_id bigint NOT NULL REFERENCES users (id),
+    receiver_id bigint NOT NULL REFERENCES users (id),
+    message text NOT NULL,
+    ucon_id bigint REFERENCES uconnection (id),
+    status smallint NOT NULL DEFAULT 1,
     is_read bool DEFAULT FALSE,
     udatetime timestamp NOT NULL DEFAULT now(),
     datetime timestamp NOT NULL DEFAULT now(),

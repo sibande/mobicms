@@ -1,6 +1,6 @@
 <?php
 /**
- * Code snippets and template helpers
+ * Project helpers.
  *
  * @package     mobicms
  * @subpackage  app
@@ -27,53 +27,61 @@ class FHelper
       }
     }
   }
-  
+
   /**
-   * Creates file url
+   * Stores temporary flash data.
    *
-   * @param   string  file id
-   * @param   string  image file size, returns original file if set to == 0
-   * @return  string  web file path
+   * @return  void
    */
-  static public function file_url($file_id, $size=176)
+  static public function set_flash($key, $value)
   {
-    $db = Fuuze::connect_db();
-    $file = $db->query('SELECT f.id, f.file, f.original, u.username FROM files f '.
-		       'INNER JOIN users u ON (f.uid = u.id) WHERE f.id=\''.(int) $file_id.'\'');
-    $file = $file->fetch();
+    if ( ! isset($_SESSION['_fuuze_flash_object']))
+    {
+      $_SESSION['_fuuze_flash_object'] = array();
+    }
     
-    if ( ! (bool) $file)
-    {
-      return '';
-    }
-    // see app/site/gallery.php on how file name is constructed
-    $file_ext = explode('.', $file['original']);
-    $file_ext = $file_ext[count($file_ext)-1];
-    $file_name = $file['file'].'-'.$file['id'].'.'.strtolower($file_ext);
-    
-    if ( ! (bool) $size)
-    {
-      return '/static/gallery/'.strtolower($file['username']).'/'.$file_name;
-    }
-    else
-    {
-      return '/static/gallery/'.strtolower($file['username']).'/'.$size.'/'.$file_name;
-    }
+    $_SESSION['_fuuze_flash_object'][$key]['value'] = $value;
+    $_SESSION['_fuuze_flash_object'][$key]['url'] = $_SERVER['REQUEST_URI'];
+    $_SESSION['_fuuze_flash_object'][$key]['count'] = 0;
   }
 
   /**
-   * Removes extension from file name
+   * Manages flash data.
    *
-   * @param   string  file name
-   * @return  string  name without extension
+   * @return void
    */
-  static public function remove_name_ext($name)
+  static public function flash()
   {
-    $name = explode('.', $name);
-
-    return implode('.', array_slice($name, 0, count($name)-1));
+    if ( ! isset($_SESSION['_fuuze_flash_object']))
+    {
+      return;
+    }
+    //var_dump($_SESSION['_fuuze_flash_object']);
+    foreach ($_SESSION['_fuuze_flash_object'] as $k=>$data)
+    {
+      $_SESSION['_fuuze_flash_object'][$k]['count']++;
+      if ($_SESSION['_fuuze_flash_object'][$k]['count'] > 1)
+      {
+	unset($_SESSION['_fuuze_flash_object'][$k]);
+      }
+    }
   }
   
+  /**
+   * Gets flash message.
+   *
+   * @param   string  flash key
+   * @return          flash data
+   */
+  static public function get_flash($key)
+  {
+    if (isset($_SESSION['_fuuze_flash_object'][$key]))
+    {
+      return $_SESSION['_fuuze_flash_object'][$key]['value'];
+    }
+    return NULL;
+  }
+
   /**
    * Replaces and translates unwanted characters leaving [a-zA-Z_-]
    * Taken from the Symfony jobeet tutorial.

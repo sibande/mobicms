@@ -26,6 +26,9 @@ $Fuuze_config = array(
     '/^\/gallery\/(?P<username>\w+)\/?$/' => array('Site_Gallery', 'user_gallery', ''),
     '/^\/gallery\/(?P<username>\w+)\/(?P<file_id>\d+)\/?$/' => array('Site_Gallery', 'user_file', ''),
     '/^\/gallery\/(?P<username>\w+)\/(?P<file_id>\d+)\/default\/?$/' => array('Site_Gallery', 'set_profile_pic', ''),
+    '/^\/mail(\/inbox)?\/?$/' => array('Site_MailBox', 'index', ''),
+    '/^\/mail\/send\/(?P<receiver_id>\d+)\/?$/' => array('Site_MailBox', 'send', ''),
+    '/^\/mail\/messages\/(?P<ucon_id>\d+)\/?$/' => array('Site_MailBox', 'messages', ''),
     ),
   // General config
   'hash_secret_key' => '\xb0\xbd\xd5d.\x1f\x9a\x82\x96\xee\x1aj\x0f\x1b(%G\xda\xd1_o"\xee\xe3', 

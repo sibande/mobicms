@@ -3,7 +3,7 @@
 {% block content %}
   {% if user.is_authenticated %}
     <div>
-      Hello, <a href="/user/{{ user.object.username }}">{{ user.object.username }}</a>
+      Hello, <a href="/user/{{ user.data.username }}">{{ user.data.username }}</a>
     </div>
   {% endif %}
 
