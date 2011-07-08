@@ -48,11 +48,13 @@ class Site_Discussion extends FController
 
     if ( ! empty($_POST))
     {
+      $this->login_required();
+
       if ($form->validate())
       {
 	$reply = $this->db->prepare('INSERT INTO comments (uid, body, item_id, typeid) '.
 				    'VALUES (:uid, :body, :item_id, :typeid);');
-	$reply->execute(array(':uid'=>$this->data['user']['object']['id'],
+	$reply->execute(array(':uid'=>$this->data['user']['data']['id'],
 			      ':body'=>$form->data['body']['value'],
 			      ':item_id'=>$request['route']['topic_id'],
 			      ':typeid'=>$this->discussion['id']));
@@ -74,6 +76,8 @@ class Site_Discussion extends FController
   
   public function add($request)
   {
+    $this->login_required();
+
     //sets $this->discussion and $this->forum
     if ( ! $this->process_discussion_request($request))
     {
@@ -88,7 +92,7 @@ class Site_Discussion extends FController
       {
 	$post = $this->db->prepare('INSERT INTO discussion (uid, topic, body, groupid) '.
 			       'VALUES (:uid, :topic, :body, :groupid);');
-	$post->execute(array(':uid'=>$this->data['user']['object']['id'],
+	$post->execute(array(':uid'=>$this->data['user']['data']['id'],
 			     ':topic'=>$form->data['title']['value'],
 			     ':body'=>$form->data['body']['value'],
 			     ':groupid'=>$this->forum['id'],

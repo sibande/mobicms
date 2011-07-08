@@ -28,6 +28,8 @@ class Site_Chat extends FController
   
   public function chat($request)
   {
+    $this->login_required();
+    
     $chat = $this->select_chat();
     $chatroom = $this->db->prepare('SELECT * FROM content_group WHERE typeid = \''.$chat['id'].
 				 '\' AND lower(label) = lower(:label);');
@@ -47,7 +49,7 @@ class Site_Chat extends FController
       {
 	$message = $this->db->prepare('INSERT INTO chat (uid, message, room_id, datetime) '.
 				      'VALUES (:uid, :message, :room_id, now());');
-	$message->execute(array(':uid'=>$this->data['user']['object']['id'],
+	$message->execute(array(':uid'=>$this->data['user']['data']['id'],
 				':message'=>$form->data['message']['value'],
 				':room_id'=>$chatroom['id'],));
 	header('Location: http://'.$_SERVER['HTTP_HOST'].'/chat/'.strtolower($chatroom['label']));

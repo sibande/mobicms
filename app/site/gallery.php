@@ -22,6 +22,8 @@ class Site_Gallery extends FController
   
   public function user_gallery($request)
   {
+    $this->login_required();
+    
     if ( ! $this->process_gallery_request($request))
     {
       return $this->render('500.html');
@@ -30,10 +32,13 @@ class Site_Gallery extends FController
     {
       return $this->render('404.html'); 
     }
+    
+    $object_user = $this->user;
 
-    $files = $this->db->query('SELECT * FROM files f WHERE f.uid=\''.$this->data['user']['object']['id'].'\'');
+    $files = $this->db->query('SELECT * FROM files f WHERE f.uid=\''.$object_user['id'].'\'');
     $files = $files->fetchAll();
 
+    $this->data['object_user'] = $object_user;
     $this->data['files'] = $files;
     $this->data['request'] = $request;
     $this->render('gallery/user.html', $this->data);
@@ -41,14 +46,17 @@ class Site_Gallery extends FController
 
   public function user_file($request)
   {
+    $this->login_required();
+
     if ( ! $this->process_gallery_request($request))
     {
       return $this->render('500.html');
     }
+    
+    $object_user = $this->user;
 
-    $file = $this->db->prepare('SELECT u.username, f.id, f.original, f.datetime  FROM files f '.
-			       'INNER JOIN users u ON (f.uid = u.id)  WHERE f.id=:id LIMIT 1');
-    $file->execute(array(':id'=>$request['route']['file_id']));
+    $file = $this->db->prepare('SELECT f.id, f.original, f.datetime  FROM files f WHERE f.id=:id LIMIT 1');
+    $file->execute(array(':id'=>$object_user['id']));
     $file = $file->fetch();
 
     if (( ! (bool) $this->user) or ( ! $file))
@@ -57,12 +65,14 @@ class Site_Gallery extends FController
     }
 
     $this->data['file'] = $file;
-
+    $this->data['object_user'] = $object_user;
     $this->render('gallery/view_file.html', $this->data);
   }
 
   public function set_profile_pic($request)
   {
+    $this->login_required();
+
     if ( ! $this->process_gallery_request($request))
     {
       return $this->render('500.html'. $this->data);
@@ -100,6 +110,8 @@ class Site_Gallery extends FController
 
   public function upload()
   {
+    $this->login_required();
+
     if ( ! $this->process_gallery_request())
     {
       return $this->render('500.html');
@@ -113,7 +125,7 @@ class Site_Gallery extends FController
       if ($form->validate())
       {
 	$user_folder = PROJECT_ROOT_DIR.'/'.APPLICATION_DIR.'/static/gallery/'.
-	  strtolower($this->data['user']['object']['username']);
+	  strtolower($this->data['user']['data']['username']);
 	
 	$image_widths = array(60, 120, 176, 240, 480);
 		
@@ -126,7 +138,7 @@ class Site_Gallery extends FController
 	// save file details in database
 	$file_data = $this->db->prepare('INSERT INTO files (uid, original, file, file_type, category) '.
 					'VALUES (:uid, :original, :file, :file_type, :category)');
-	$file_data->execute(array(':uid'=> $this->data['user']['object']['id'],
+	$file_data->execute(array(':uid'=> $this->data['user']['data']['id'],
 				  ':original'=>$original,
 				  ':file'=>$file_name,
 				  ':file_type'=>$file_type,
