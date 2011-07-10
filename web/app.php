@@ -8,10 +8,10 @@ require('fuuze/fuuze.php');
 require_once '../plugins/Twig/Autoloader.php';
 Twig_Autoloader::register();
 
-require_once '../app/lib/fform/autoloader.php';
+require_once '../plugins/fform/autoloader.php';
 FForm_Autoloader::register();
 
-require_once '../../image/kil/autoloader.php';
+require_once '../plugins/kil/autoloader.php';
 KIL_Autoloader::register();
 
 spl_autoload_register('autoload');
