@@ -29,7 +29,7 @@
     
       {% if user.is_authenticated %}
 	<div class="right profile">
-	  <a href="/user/{{ user.data.username }}">Profile</a>
+	  <img src="/static/icons/uinfo.png" alt="user" /><a href="/user/{{ user.data.username }}">Profile</a>
 	  <a href="/mail">Mailbox</a> (<span class="lime">{{ user.data.id|new_messages }}</span>)
 	</div>
       {% else %}

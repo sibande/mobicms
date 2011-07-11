@@ -14,6 +14,7 @@ $Fuuze_config = array(
     '/^\/user\/join\/?$/' => array('Site_User', 'join', ''),
     '/^\/user\/login\/?$/' => array('Site_User', 'login', ''),
     '/^\/user\/logout\/?$/' => array('Site_User', 'logout', ''),
+    '/^\/user\/list(\/p(?P<page_id>\d+))?\/?$/' => array('Site_Profile', 'users_list', ''),
     '/^\/user\/(?P<username>\w+)\/?$/' => array('Site_Profile', 'view', ''),
     '/^\/chat\/?$/' => array('Site_Chat', 'index', ''),
     '/^\/chat\/(?P<chatroom>[a-zA-Z-_]+)\/?$/' => array('Site_Chat', 'chat', ''),

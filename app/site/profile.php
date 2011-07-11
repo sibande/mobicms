@@ -25,10 +25,10 @@ class Site_Profile extends FController
     {
       return $this->render('404.html'); 
     }
-
+    
     $rules = require(dirname(__FILE__).'/forms/mailbox.php');
     $form = new FForm_Form($rules);
-
+    
     //echo '<pre>';var_dump($form); echo '</pre>';
     $this->data['object_user'] = $object_user;
     $this->data['form'] = $form;
@@ -37,6 +37,15 @@ class Site_Profile extends FController
     
   }
 
+  public function users_list($request)
+  {
+    $users = $this->db->query('SELECT p.profile_pic, u.id, u.username, u.udatetime, u.datetime '.
+			      'FROM users u LEFT OUTER JOIN profile p ON (u.id=p.uid) ORDER BY u.datetime DESC');
+    $users = new Lib_Paginator($users->fetchAll(), ceil(FUUZE_DATA_PER_PAGE/2), 
+			       FHelper::get_page_id($request), '/user/list');
 
+    $this->data['users'] = $users;
+    $this->render('profile/list.html', $this->data);
+  }
 
 }

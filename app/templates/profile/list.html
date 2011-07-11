@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Find People{% endblock %}
+{% block content %}
+  <h2>Find Interesting People</h2>
+
+  <table>
+    {% for list_user in users.page_data() %}
+      {% if not loop.index is divisibleby(2) %}
+	<tr>
+      {% endif %}
+      <td>
+	<a href="/user/{{ list_user.username|lower }}">
+	  <img src="{{ get_file_url(list_user.profile_pic, 60) }}" alt="{{ list_user.username }}" /><br />
+	  {{ list_user.username }}
+	</a>
+      </td>
+      {% if loop.index is divisibleby(2) %}
+	</tr>
+      {% endif %}
+    {% endfor %}
+    {% if not users.page_data()|length is divisibleby(2) %}
+      </tr>
+    {% endif %}
+  </table>
+
+  {% set object_data = users %}
+  {% include "_pagination.html" %}
+
+{% endblock %}
