@@ -7,6 +7,21 @@
     </div>
   {% endif %}
 
+  <strong>Featured people:</strong><br />
+  <table>
+    <tr>
+      {% for featured_user in featured %}
+	<td>
+	  <a href="/user/{{ featured_user.username|lower }}">
+	    <img src="{{ get_file_url(featured_user.profile_pic, 60) }}" alt="{{ featured_user.username }}" /><br />
+	    {{ featured_user.username }}
+	  </a>
+	</td>
+      {% endfor %}
+    </tr>
+  </table>
+  
+  <hr />
   
   <table>
     <tr>
