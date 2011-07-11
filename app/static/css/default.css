@@ -5,6 +5,7 @@ a { color: #111111; text-decoration: none; }
 a:visited { color: #333333; }
 table, input, textarea { width: 100%; }
 hr { border-color: #cccccc; margin: 4px;border-width: 0 0 1px 0; }
+h2 { font-size: large; margin: 0 0 0.5em 0; }
 .right { text-align: right; }
 .lime { color: lime; }
 .gray { color: #cccccc; }

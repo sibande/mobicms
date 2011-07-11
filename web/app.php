@@ -14,7 +14,7 @@ FForm_Autoloader::register();
 require_once '../plugins/kil/autoloader.php';
 KIL_Autoloader::register();
 
-spl_autoload_register('autoload');
+spl_autoload_register('Fuuze::autoload');
 
 define('PROJECT_ROOT_DIR', dirname(dirname(__FILE__)));
 define('APPLICATION_DIR', 'app');
