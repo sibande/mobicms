@@ -9,7 +9,7 @@
 
 class Site_MailBox extends FController
 {
-  public function index()
+  public function index($request)
   {
     $this->login_required();
     
@@ -21,7 +21,9 @@ class Site_MailBox extends FController
 				    'INNER JOIN users ut ON (uc.user_two_id=ut.id) '.
 				    'WHERE uc.user_one_id=:user_id OR uc.user_two_id=:user_id ORDER BY uc.datetime DESC');
     $exchanges->execute(array(':user_id'=>$this->data['user']['data']['id']));
-    $exchanges = $exchanges->fetchAll();
+        
+    $exchanges = new Lib_Paginator($exchanges->fetchAll(), FUUZE_DATA_PER_PAGE, FHelper::get_page_id($request),
+				   '/mail/inbox');
     
     $this->data['exchanges'] = $exchanges;
     $this->data['form'] = $form;
@@ -49,7 +51,9 @@ class Site_MailBox extends FController
     $messages = $this->db->query('SELECT u.username, m.id, m.sender_id, m.receiver_id, m.message, m.is_read, m.datetime '.
 				 'FROM message m INNER JOIN users u ON (m.sender_id=u.id) '.
 				 'WHERE m.ucon_id=\''.$ucon['id'].'\' ORDER BY m.datetime DESC');
-    $messages = $messages->fetchAll();
+
+    $messages = new Lib_Paginator($messages->fetchAll(), FUUZE_DATA_PER_PAGE, FHelper::get_page_id($request),
+				  '/mail/messages/'.$request['route']['ucon_id']);
 
     $this->data['messages'] = $messages;
     $this->data['ucon'] = $ucon;

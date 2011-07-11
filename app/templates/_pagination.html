@@ -1,0 +1,15 @@
+<hr />
+{% if object_data.has_previous() %}
+  <a href="{{ object_data.page_uri }}/p1">&laquo;First</a> 
+  <a href="{{ object_data.page_uri }}/p{{ object_data.previous_page_number() }}">Prev</a> 
+{% else %}
+  <span class="gray">&laquo;First Prev</span>
+{% endif %}
+  <span class="gray">{{ object_data.page }} of {{ object_data.total_pages }} </span>
+{% if object_data.has_next() %}
+  <a href="{{ object_data.page_uri }}/p{{ object_data.next_page_number() }}">Next</a> 
+  <a href="{{ object_data.page_uri }}/p{{ object_data.last_page() }}">Last&raquo;</a>
+{% else %}
+  <span class="gray">Next Last&raquo;</span>
+{% endif %}
+<hr />

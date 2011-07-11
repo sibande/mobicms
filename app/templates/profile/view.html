@@ -24,7 +24,7 @@
 
   <br />
 
-  <a href="/gallery/{{ object_user.username|lower }}"><img src="/static/icons/graphics.png" alt="gallery" /> Gallery</a>
+  <a href="/gallery/user/{{ object_user.username|lower }}"><img src="/static/icons/graphics.png" alt="gallery" /> Gallery</a>
   ({{ gallery_file_count(object_user.id) }} files)<br />
   <div>
     Last login: {{ object_user.udatetime }}

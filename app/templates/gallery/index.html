@@ -11,6 +11,29 @@
     </a>
   </div>
 
-  Upload files to your Gallery.<br />
+  <table>
+    {% for file in files.page_data() %}
+      {% if not loop.index is divisibleby(2) %}
+	<tr>
+      {% endif %}
+      <td>
+	<a href="/gallery/user/{{ file.username|lower }}/{{ file.id }}">
+	  <img src="{{ get_file_url(file.id, 60) }}" alt="{{ file.original }}" /><br />
+	  {{ remove_name_ext(file.original) }}
+	</a>
+	<br />
+	By <a href="/user/{{ file.username|lower }}">{{ file.username }}</a>
+      </td>
+      {% if loop.index is divisibleby(2) %}
+	</tr>
+      {% endif %}
+    {% endfor %}
+    {% if not files.page_data()|length is divisibleby(2) %}
+      </tr>
+    {% endif %}
+  </table>
+
+  {% set object_data = files %}
+  {% include "_pagination.html" %}
 
 {% endblock %}

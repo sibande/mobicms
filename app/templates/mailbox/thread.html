@@ -15,7 +15,7 @@
 
   <h2>Messages from - <a href="/user/{{ from_username|lower }}">{{ from_username }}</a></h2>
   
-  {% for message in messages %}
+  {% for message in messages.page_data() %}
     <div>
       <strong>
 	{% if message.sender_id == user.data.id %}
@@ -28,12 +28,21 @@
 	{% endif %}
       </strong>
       :
-      {{ message.message }}
+      {{ message.message }} - {{ message.datetime }}
     </div>
   {% endfor %}
   
-  <br />
+
+  {% set object_data = messages %}
+  {% include "_pagination.html" %}
+  
+
   <strong>Reply</strong><br />
+  {% if get_flash("send_feedback") %}
+    <div class="error">
+      {{ get_flash("send_feedback") }}
+    </div>
+  {% endif %}
   <form action="/mail/send/{{ from_id }}?next=/mail/messages/{{ ucon.id }}" method="POST">
     {{ input.show("message", "textarea", {"rows": 2}, form) }}
     <input type="submit" value="Send" />

@@ -4,7 +4,7 @@
   <h2>MailBox</h2>
 
   <strong>View messages from:</strong><br />
-  {% for exchange in exchanges %}
+  {% for exchange in exchanges.page_data() %}
     <div>
       <a href="/mail/messages/{{ exchange.id }}">
         {% if user.data.username == exchange.username_one %}
@@ -16,4 +16,11 @@
       </div>
   {% endfor %}
   
+  {% set object_data = exchanges %}
+  {% include "_pagination.html" %}
+  
+{% endblock %}
+
+{% block bottom_menu %}
+  <a href="/user/{{ user.data.username|lower }}">Back</a><br />
 {% endblock %}

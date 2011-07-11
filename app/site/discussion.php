@@ -65,8 +65,10 @@ class Site_Discussion extends FController
     $replies = $this->db->query('SELECT c.id, c.body, c.datetime, u.username FROM comments c INNER JOIN users u ON (c.uid = u.id) '.
 				'WHERE c.item_id = '.((int) $request['route']['topic_id']).' '.
 				'AND c.typeid = '.$this->discussion['id'].' ORDER BY c.datetime DESC');
-    $replies = $replies->fetchAll();
-    
+
+    $replies = new Lib_Paginator($replies->fetchAll(), FUUZE_DATA_PER_PAGE, FHelper::get_page_id($request),
+			    '/discussion/topic/'.$request['route']['topic_id']);
+
     $this->data['replies'] = $replies;
     $this->data['form'] = $form;
     $this->data['topic'] = $topic;
@@ -119,12 +121,16 @@ class Site_Discussion extends FController
     {
     }
 
-    $topics_data = $this->db->query('SELECT d.id, d.topic, d.body, d.datetime, d.udatetime, u.username '.
+    $topics = $this->db->query('SELECT d.id, d.topic, d.body, d.datetime, d.udatetime, u.username '.
 				    'FROM discussion d INNER JOIN users u ON (d.uid = u.id) '.
 				    'WHERE d.groupid = \''.$this->forum['id'].'\' AND d.is_active=true '.
-				    'ORDER BY d.id DESC LIMIT '.FUUZE_DATA_PER_PAGE.';');
-    $this->data['topics_data'] = $topics_data->fetchAll();
-    
+				    'ORDER BY d.id DESC');
+
+      
+    $topics = new Lib_Paginator($topics->fetchAll(), FUUZE_DATA_PER_PAGE, FHelper::get_page_id($request),
+				'/discussion/'.$request['route']['forum']);
+
+    $this->data['topics'] = $topics;
     $this->data['discussion'] = $this->discussion;
     $this->data['forum'] = $this->forum;
     $this->render('discussion/discussion.html', $this->data);

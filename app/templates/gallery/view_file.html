@@ -7,7 +7,7 @@
   Uploaded: {{ file.datetime }}<br />
   {% if object_user.id == user.data.id %}
     {% if not (file.id == user.data.profile_pic_id) %}
-      <a href="/gallery/{{ object_user.username|lower }}/{{ file.id }}/default">Set as Profile Pic</a><br />
+      <a href="/gallery/user/{{ object_user.username|lower }}/{{ file.id }}/default">Set as Profile Pic</a><br />
     {% else %}
       <strong>Current profile picture.</strong><br />
     {% endif %}
@@ -16,5 +16,5 @@
 {% endblock %}
 
 {% block bottom_menu %}
-  <a href="/gallery/{{ object_user.username|lower }}">Back</a><br />
+  <a href="/gallery/user/{{ object_user.username|lower }}">Back</a><br />
 {% endblock %}

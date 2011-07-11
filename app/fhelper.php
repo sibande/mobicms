@@ -16,7 +16,7 @@ class FHelper
    * @param   array   list of dirs to be created
    * @return  void
    */
-  static public function mkdirs($path, $dirs=array())
+  public static function mkdirs($path, $dirs=array())
   {
     foreach ($dirs as $dir)
     {
@@ -33,7 +33,7 @@ class FHelper
    *
    * @return  void
    */
-  static public function set_flash($key, $value)
+  public static function set_flash($key, $value)
   {
     if ( ! isset($_SESSION['_fuuze_flash_object']))
     {
@@ -50,7 +50,7 @@ class FHelper
    *
    * @return void
    */
-  static public function flash()
+  public static function flash()
   {
     if ( ! isset($_SESSION['_fuuze_flash_object']))
     {
@@ -73,7 +73,7 @@ class FHelper
    * @param   string  flash key
    * @return          flash data
    */
-  static public function get_flash($key)
+  public static function get_flash($key)
   {
     if (isset($_SESSION['_fuuze_flash_object'][$key]))
     {
@@ -83,13 +83,33 @@ class FHelper
   }
 
   /**
+   * Gets pagination page number from request data.
+   *
+   * @param   array  request data
+   * @return  int    page id
+   */
+  public static function get_page_id($request)
+  {
+    if (array_key_exists('page_id', $request['route']))
+    {
+      $page_id = (int) $request['route']['page_id'];
+    }
+    else
+    {
+      $page_id = 1;
+    }
+    return $page_id;
+  }
+
+
+  /**
    * Replaces and translates unwanted characters leaving [a-zA-Z_-]
    * Taken from the Symfony jobeet tutorial.
    *
    * @param   string  text
    * @return  string  slug text
    */
-  static public function slugify($text)
+  public static function slugify($text)
   {
     // replace non letter or digits by -
     $text = preg_replace('#[^\\pL\d]+#u', '-', $text);

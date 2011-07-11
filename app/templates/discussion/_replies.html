@@ -1,6 +1,6 @@
 {# display topic replies #}
 
-{% for reply in replies %}
+{% for reply in replies.page_data() %}
   <div>
     <div>
       {{ reply.body }}

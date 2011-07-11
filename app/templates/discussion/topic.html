@@ -8,6 +8,9 @@
 
   {% include "discussion/_replies.html" %}
   
+  {% set object_data = replies %}
+  {% include "_pagination.html" %}
+
   {% if user.is_authenticated %}
     <form action="/discussion/topic/{{ topic.id }}" method="POST">
       <strong>Reply</strong><br />

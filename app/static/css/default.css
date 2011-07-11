@@ -3,7 +3,9 @@ body {
 a img { border: 0; }
 a { text-decoration: none; }
 table, input, textarea { width: 100%; }
-hr { border-width: 0 0 1px 0; }
+hr { border-color: #cccccc; margin: 4px;border-width: 0 0 1px 0; }
 .right { text-align: right; }
 .lime { color: lime; }
+.gray { color: #cccccc; }
 .error { color: #8a1f11; }
+.notice { color: #264409; }

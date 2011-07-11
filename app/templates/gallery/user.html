@@ -3,14 +3,28 @@
 {% block content %}
 
   <h2>{{ object_user.username|lower }} Gallery</h2>
+
+  <div class="top-menu right">
+    <a href="/gallery/upload">
+      <img src="/static/icons/add.png" alt="+" />
+      Upload
+    </a>
+  </div>
+  
+  {% if get_flash("upload_feedback") %}
+    <div class="notice">
+      {{ get_flash("upload_feedback") }}
+    </div>
+  {% endif %}
+  
   <strong>{{ gallery_file_count(object_user.id) }}</strong> gallery files<br />
   <table>
-    {% for file in files %}
+    {% for file in files.page_data() %}
       {% if not loop.index is divisibleby(2) %}
 	<tr>
       {% endif %}
       <td>
-	<a href="/gallery/{{ object_user.username|lower }}/{{ file.id }}">
+	<a href="/gallery/user/{{ object_user.username|lower }}/{{ file.id }}">
 	  <img src="{{ get_file_url(file.id, 60) }}" alt="{{ file.original }}" /><br />
 	  {{ remove_name_ext(file.original) }}
 	</a>
@@ -19,10 +33,14 @@
 	</tr>
       {% endif %}
     {% endfor %}
-    {% if not files|length is divisibleby(2) %}
+    {% if not files.page_data()|length is divisibleby(2) %}
       </tr>
     {% endif %}
   </table>
+
+  {% set object_data = files %}
+  {% include "_pagination.html" %}
+    
 {% endblock %}
 
 {% block bottom_menu %}

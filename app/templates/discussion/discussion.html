@@ -6,9 +6,12 @@
     <a href="/discussion/{{ forum.label|lower }}/add"><img src="/static/icons/add.png" alt="+" /> Add Topic</a>
   </div>
 
-  {% for topic in topics_data %}
+  {% for topic in topics.page_data() %}
     <div><a href="/discussion/topic/{{ topic.id }}">{{ topic.topic }}</a> - {{ topic.datetime }}</div>
   {% endfor %}
+  
+  {% set object_data = topics %}
+  {% include "_pagination.html" %}
   
 
 {% endblock %}

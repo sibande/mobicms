@@ -10,13 +10,20 @@
 class Site_Gallery extends FController
 {
   
-  public function index()
+  public function index($request)
   {
     if ( ! $this->process_gallery_request())
     {
       return $this->render('500.html');
     }
 
+    $files = $this->db->query('SELECT f.id, f.original, f.file, f.datetime, u.username FROM files f '.
+			      'INNER JOIN users u ON (f.uid=u.id) ORDER BY f.datetime DESC');
+    
+    $files = new Lib_Paginator($files->fetchAll(), ceil(FUUZE_DATA_PER_PAGE/2), FHelper::get_page_id($request),
+			       '/gallery');
+
+    $this->data['files'] = $files;
     $this->render('gallery/index.html', $this->data);
   }
   
@@ -35,8 +42,10 @@ class Site_Gallery extends FController
     
     $object_user = $this->user;
 
-    $files = $this->db->query('SELECT * FROM files f WHERE f.uid=\''.$object_user['id'].'\'');
-    $files = $files->fetchAll();
+    $files = $this->db->query('SELECT * FROM files f WHERE f.uid=\''.$object_user['id'].'\' ORDER BY f.datetime DESC');
+    
+    $files = new Lib_Paginator($files->fetchAll(), ceil(FUUZE_DATA_PER_PAGE/2), FHelper::get_page_id($request),
+			       '/gallery/user/'.strtolower($object_user['username']));
 
     $this->data['object_user'] = $object_user;
     $this->data['files'] = $files;
@@ -56,7 +65,7 @@ class Site_Gallery extends FController
     $object_user = $this->user;
 
     $file = $this->db->prepare('SELECT f.id, f.original, f.datetime  FROM files f WHERE f.id=:id LIMIT 1');
-    $file->execute(array(':id'=>$object_user['id']));
+    $file->execute(array(':id'=>$request['route']['file_id']));
     $file = $file->fetch();
 
     if (( ! (bool) $this->user) or ( ! $file))
@@ -160,7 +169,9 @@ class Site_Gallery extends FController
 	// resize image
 	$this->_save_resized_images($file_path, $image_widths);
 
-	header('Location: http://'.$_SERVER['HTTP_HOST'].'/gallery');
+	FHelper::set_flash('upload_feedback', 'File successfully uploaded.');
+
+	header('Location: http://'.$_SERVER['HTTP_HOST'].'/gallery/user/'.strtolower($this->data['user']['data']['username']));
       }
     }
     
