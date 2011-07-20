@@ -96,7 +96,7 @@ class Site_Gallery extends FController
       return $this->render('404.html', $this->data); 
     }
     
-    if (preg_match('/^(?P<image_uri>.+)\/default\/?/', $request['route'][0], $matches))
+    if (preg_match('/^\/(?P<image_uri>.+)\/default\/?/', $request['route'][0], $matches))
     {
       
       $image_uri = $matches['image_uri'];
@@ -133,7 +133,7 @@ class Site_Gallery extends FController
     {
       if ($form->validate())
       {
-	$user_folder = PROJECT_ROOT_DIR.'/'.APPLICATION_DIR.'/static/gallery/'.
+	$user_folder = FSTATIC_DIR.'/gallery/'.
 	  strtolower($this->data['user']['data']['username']);
 	
 	$image_widths = array(60, 120, 176, 240, 480);
